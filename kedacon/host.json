@@ -1,0 +1,24 @@
+{
+  "masterKey": {
+    "name": "master",
+    "value": "rELAomCUouUpifjNMKTnjRkdjghE9CduKkTlGd90YNUoGvuR6aF6Vw==",
+    "encrypted": false
+  },
+  "functionKeys": [
+    {
+      "name": "default",
+      "value": "qIbdvwqwqi63V3NJ6ycrGqBEYwqzTgDjDjxI0ZDUNpq6arU0Ip5Few==",
+      "encrypted": false
+    }
+  ],
+  "version": "2.0",
+  "logging": {
+    "applicationInsights": {
+      "samplingSettings": {
+        "isEnabled": true,
+        "excludedTypes": "Request"
+      },
+      "enableLiveMetricsFilters": true
+    }
+  }
+}

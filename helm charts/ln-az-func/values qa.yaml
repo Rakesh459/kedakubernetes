@@ -1,0 +1,13 @@
+funcapp: 
+  replicaCount: 2
+  appname: func-app
+  env: qa
+  image: "rakeshkumarreddy907/test:latest"
+
+service:
+  type: LoadBalancer
+  port: 9002
+
+secrets:
+  storagekey: <key-here>
+

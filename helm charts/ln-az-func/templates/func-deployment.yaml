@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: func-app
-  namespace: {{ .Values.funcapp.env }}
   labels:
     {{- include "func-labels" . | nindent 4 }}
 spec:
@@ -23,3 +22,10 @@ spec:
             name: func-secret 
         ports:
         - containerPort: 80
+        volumeMounts:
+          - name: func-vol
+            mountPath: /azure-functions-host/Secrets/test
+      volumes:
+        - name: func-vol
+          persistentVolumeClaim: 
+            claimName: func-pvc

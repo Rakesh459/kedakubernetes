@@ -1,0 +1,13 @@
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: func-pvc
+#   labels:
+#     app: func-pvc
+# spec:
+#   accessModes:
+#   - ReadWriteMany
+#   resources:
+#     requests:
+#       storage: 2Gi
+#   storageClassName: "func-storage-class"

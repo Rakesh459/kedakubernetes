@@ -2,7 +2,6 @@ apiVersion: keda.sh/v1alpha1
 kind: ScaledObject
 metadata:
   name: azure-queue-scaledobject
-  namespace: {{ .Values.funcapp.env }}
 spec:
   scaleTargetRef:
     name: {{ .Values.funcapp.appname }}

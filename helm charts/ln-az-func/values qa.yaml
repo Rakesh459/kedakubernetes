@@ -9,5 +9,4 @@ service:
   port: 9002
 
 secrets:
-  storagekey: <key-here>
-
+  storagekey: PGtleS1oZXJlPg==

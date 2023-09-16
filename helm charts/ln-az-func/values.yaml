@@ -9,8 +9,8 @@ funcapp:
 
 service:
   type: LoadBalancer
-  port: 9001
+  port: 9000
 
 secrets:
-  storagekey: <key-here>
+  storagekey: PGtleS1oZXJlPg==
 

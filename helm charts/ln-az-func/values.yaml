@@ -6,10 +6,17 @@ funcapp:
   appname: func-app
   env: dev
   image: "rakeshkumarreddy907/test:latest"
+  service:
+    type: LoadBalancer
+    port: 9000
 
-service:
-  type: LoadBalancer
-  port: 9000
+nginxapp:
+  replicaCount: 2  
+  image:  nginx:latest
+  service:
+    type: LoadBalancer
+    port: 4000
+
 
 secrets:
   storagekey: PGtleS1oZXJlPg==

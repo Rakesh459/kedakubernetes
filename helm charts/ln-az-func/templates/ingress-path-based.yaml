@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: ingress-func-nginx
+  name: ingress-path-based
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$1
 spec:
@@ -9,28 +9,28 @@ spec:
   - host: testingrakesh.com
     http:
       paths:
-      - path: /testing
-        pathType: Exact
-        backend:
-          service:
-            name: nginx-svc
-            port:
-              number: {{ .Values.nginxapp.service.port }}  
-      - path: /lala
-        pathType: Exact
-        backend:
-          service:
-            name: func-svc
-            port:
-              number: {{ .Values.funcapp.service.port }}   
-      - path: /testing/(.*)
+      # - path: /testing
+      #   pathType: Exact
+      #   backend:
+      #     service:
+      #       name: nginx-svc
+      #       port:
+      #         number: {{ .Values.nginxapp.service.port }}  
+      # - path: /lala
+      #   pathType: Exact
+      #   backend:
+      #     service:
+      #       name: func-svc
+      #       port:
+      #         number: {{ .Values.funcapp.service.port }}   
+      - path: /testing/?(.*)
         pathType: ImplementationSpecific
         backend:
           service:
             name: nginx-svc
             port:
               number: {{ .Values.nginxapp.service.port }}         
-      - path: /lala/(.*)
+      - path: /lala/?(.*)
         pathType: ImplementationSpecific
         backend:
           service:

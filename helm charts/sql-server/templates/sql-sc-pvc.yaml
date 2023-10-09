@@ -1,0 +1,20 @@
+# apiVersion: storage.k8s.io/v1
+# kind: StorageClass
+# metadata: 
+#   name: sql-server-sc
+# provisioner: docker.io/hostpath
+# volumeBindingMode: Immediate
+# ---
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: sqlserver-pvc
+#   labels:
+#     app: sqlserver-pvc
+# spec:
+#   accessModes:
+#   - ReadWriteMany
+#   resources:
+#     requests: 
+#       storage: 5Gi
+#   storageClassName: sql-server-sc

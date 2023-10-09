@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.sqlserverapp.appname }}
+spec:
+  replicas: {{ .Values.sqlserverapp.replicaCount }}  
+  selector:
+    matchLabels:
+      app: {{ .Values.sqlserverapp.appname }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.sqlserverapp.appname }}
+    spec:
+      containers:
+      - name: {{ .Values.sqlserverapp.appname }}
+        image: {{ .Values.sqlserverapp.image }}
+        ports:
+        - containerPort: 1433
+        volumeMounts:
+        - name: {{ .Values.sqlserverapp.pvc.name }}
+          mountPath: /var/opt/mssql
+        env:
+        - name: MSSQL_SA_PASSWORD
+          value: {{ .Values.sqlserverapp.password }}
+        - name: ACCEPT_EULA
+          value: "Y"
+      volumes: 
+      - name: {{ .Values.sqlserverapp.pvc.name }}
+        persistentVolumeClaim: 
+          claimName: {{ .Values.sqlserverapp.pvc.name }}
+

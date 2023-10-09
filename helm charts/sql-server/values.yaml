@@ -1,0 +1,11 @@
+sqlserverapp: 
+  replicaCount: 1
+  appname: sql-server-app
+  image: mcr.microsoft.com/mssql/server:2022-latest
+  password: Testing1122
+  pvc: 
+    name: sqlserver-pvc
+  service:
+    name: sql-server-svc
+    type: LoadBalancer
+    port: 2433

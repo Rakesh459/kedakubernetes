@@ -14,8 +14,9 @@ namespace kedacon
         }
 
         [Function(nameof(SGQueueFunction))]
-        public void Run([QueueTrigger("testqueue", Connection = "QueueCS")] string message, FunctionContext functionContext)
+        public async Task Run([QueueTrigger("testqueue", Connection = "QueueCS")] string message, FunctionContext functionContext)
         {
+             await Task.Delay(TimeSpan.FromSeconds(1));
             _logger.LogInformation($"C# Queue trigger function processed: {message}");
         }
     }

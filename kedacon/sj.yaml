@@ -1,0 +1,55 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledJob
+metadata:
+    name: azure-servicebus-scaledjob
+    namespace: default
+spec:
+    jobTargetRef:
+        parallelism: 1
+        completions: 1
+        activeDeadlineSeconds: 3600
+        backoffLimit: 1
+        template:
+            spec:
+                containers:
+                - name: worker
+                  image: rakeshtesting.azurecr.io/testwebjob
+                  resources:
+                    limits:
+                      cpu: "500m"
+                      memory: "512Mi"
+                    requests:
+                      cpu: "250m"
+                      memory: "256Mi"
+                restartPolicy: Never
+    pollingInterval: 30   # Optional. Default: 30 seconds
+    successfulJobsHistoryLimit: 5  # Optional. Default: 5
+    failedJobsHistoryLimit: 5  # Optional. Default: 5
+    maxReplicaCount: 30  # Optional. Default: 100
+    triggers:
+    - type: azure-servicebus
+      metadata:
+        queueName: test
+        messageCount: "1"  # Scale when there are at least 5 messages in the queue
+      authenticationRef:
+        name: keda-trigger-auth-azure-servicebus
+---
+apiVersion: v1
+kind: Secret
+metadata:
+    name: azure-servicebus-secret
+    namespace: default
+type: Opaque
+data:
+  connectionString: secret
+---
+apiVersion: keda.sh/v1alpha1
+kind: TriggerAuthentication
+metadata:
+    name: keda-trigger-auth-azure-servicebus
+    namespace: default
+spec:
+    secretTargetRef:
+    - parameter: connection
+      name: azure-servicebus-secret
+      key: connectionString
